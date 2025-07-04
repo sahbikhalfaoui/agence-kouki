@@ -638,7 +638,7 @@ const SummerProgram = () => {
             Get in Touch
           </h2>
           <p className="text-xl text-blue-700 max-w-2xl mx-auto">
-            Ready to embark on your language learning adventure? We're here to help you every step of the way
+            Ready to embark on your language learning adventure? We re here to help you every step of the way
           </p>
         </motion.div>
         
