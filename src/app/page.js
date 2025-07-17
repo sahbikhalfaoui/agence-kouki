@@ -106,7 +106,7 @@ const Navigation = () => {
           </motion.div>
           
           <div className="hidden md:flex items-center space-x-8">
-            {['Home', 'Trips', 'About', 'Contact'].map((item, index) => (
+            {['Home', 'Trips', 'Contact'].map((item, index) => (
               <motion.a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -156,21 +156,21 @@ const Navigation = () => {
             { 
               icon: Phone, 
               title: "Call Us", 
-              info: "+216 71 123 456", 
+              info: "+216 20 268 908", 
               description: "Mon-Fri 9AM-6PM",
               color: "from-green-400 to-green-600"
             },
             { 
               icon: Mail, 
               title: "Email Us", 
-              info: "info@agencekouki.tn", 
+              info: "Taoufik.kouki@hotmail.fr", 
               description: "24/7 Support",
               color: "from-blue-400 to-blue-600"
             },
             { 
               icon: MapPin, 
               title: "Visit Us", 
-              info: "Tunis, Tunisia", 
+              info: "Ennasr, Tunisia", 
               description: "Central Location",
               color: "from-purple-400 to-purple-600"
             }
@@ -217,16 +217,7 @@ const Navigation = () => {
           </div>
           
           <div>
-            <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {['Home', 'Programs', 'About', 'Contact'].map((link) => (
-                <li key={link}>
-                  <a href={`#${link.toLowerCase()}`} className="text-blue-200 hover:text-white transition-colors">
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            
           </div>
           
           <div>
@@ -242,9 +233,9 @@ const Navigation = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <div className="space-y-2 text-blue-200">
-              <p>+216 70 000 000</p>
-              <p>info@agencekouki.tn</p>
-              <p>Tunis, Tunisia</p>
+              <p>+216 20 268 908 </p>
+              <p>Taoufik.kouki@hotmail.fr</p>
+              <p>Ennasr, Tunisia</p>
             </div>
           </div>
         </div>
@@ -286,7 +277,7 @@ const Navigation = () => {
           <Navigation />
           <HeroSection />
           <FeaturedCollection />
-          <TripPrograms />
+         
           <Accreditations />
           <SummerProgram />
           <Contact />

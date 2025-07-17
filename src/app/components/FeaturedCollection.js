@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ChevronLeft, ChevronRight, MapPin, Users, Calendar, 
+  ChevronLeft, ChevronRight, MapPin, Calendar, 
   Star, Award, Heart, Camera, Sparkles, Play, Wind
 } from 'lucide-react';
 
@@ -15,61 +15,56 @@ const FeaturedCollection = () => {
 
   const programYears = [
     {
-      year: '2024',
-      title: 'Mediterranean Adventure',
-      location: 'Barcelona, Spain',
-      participants: 145,
+      year: '2025',
+      title: 'London Kookies',
+      location: 'London, UK',
       rating: 4.9,
-      highlight: 'Beach & Culture',
-      image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&h=600&fit=crop&crop=center',
+      highlight: 'Linguistic Trip with Fun Activities',
+      image: '/images/2025.jpg',
       color: 'from-orange-400 to-red-500',
       lightColor: 'from-orange-100 to-red-100',
       accent: 'orange-500'
     },
     {
-      year: '2023',
-      title: 'Nordic Innovation',
-      location: 'Stockholm, Sweden',
-      participants: 98,
+      year: '2024',
+      title: 'Brunel Kookies',
+      location: 'Brunel, UK',
       rating: 4.8,
-      highlight: 'Tech & Design',
-      image: 'https://images.unsplash.com/photo-1509356843151-3e7d96241e11?w=800&h=600&fit=crop&crop=center',
+      highlight: 'Linguistic Trip with Fun Activities',
+      image: '/images/2024.jpg',
       color: 'from-blue-400 to-cyan-500',
       lightColor: 'from-blue-100 to-cyan-100',
       accent: 'blue-500'
     },
     {
-      year: '2022',
-      title: 'British Isles Explorer',
-      location: 'Edinburgh, Scotland',
-      participants: 167,
+      year: '2023',
+      title: 'Shiplake Kookies',
+      location: 'Shiplake, UK',
       rating: 4.9,
-      highlight: 'History & Heritage',
-      image: 'https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=800&h=600&fit=crop&crop=center',
+      highlight: 'Linguistic Trip with Fun Activities',
+      image: '/images/2023-1.jpg',
       color: 'from-green-400 to-emerald-500',
       lightColor: 'from-green-100 to-emerald-100',
       accent: 'green-500'
     },
     {
-      year: '2021',
-      title: 'Alpine Language Journey',
-      location: 'Interlaken, Switzerland',
-      participants: 89,
+      year: '2023',
+      title: 'Ardmore Kookies',
+      location: 'Ardmore, UK',
       rating: 4.7,
-      highlight: 'Nature & Adventure',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&crop=center',
+      highlight: 'Linguistic Trip with Fun Activities',
+      image: '/images/2023-2.jpg',
       color: 'from-purple-400 to-pink-500',
       lightColor: 'from-purple-100 to-pink-100',
       accent: 'purple-500'
     },
     {
-      year: '2020',
-      title: 'Virtual Global Connect',
-      location: 'Online Experience',
-      participants: 234,
+      year: '2022',
+      title: 'Ardmore Shiplake',
+      location: 'Ardmore & Shiplake, UK',
       rating: 4.6,
-      highlight: 'Digital Innovation',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop&crop=center',
+      highlight: 'Linguistic Trip with Fun Activities',
+      image: '/images/2022.jpg',
       color: 'from-indigo-400 to-blue-500',
       lightColor: 'from-indigo-100 to-blue-100',
       accent: 'indigo-500'
@@ -243,7 +238,7 @@ const FeaturedCollection = () => {
               transition={{ delay: 0.5 }}
               className={`block bg-gradient-to-r ${programYears[activeYear].color} bg-clip-text text-transparent`}
             >
-              Adventures
+              Kookies Adventures
             </motion.span>
           </motion.h2>
           <motion.p
@@ -253,7 +248,7 @@ const FeaturedCollection = () => {
             transition={{ delay: 0.4 }}
             className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
           >
-            Relive the incredible moments from our past language learning journeys
+            Relive the incredible moments from our linguistic trips filled with fun activities across the UK
           </motion.p>
         </motion.div>
 
@@ -372,17 +367,6 @@ const FeaturedCollection = () => {
                     <div className="flex items-center space-x-8">
                       <div className="text-center">
                         <motion.div
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                          className="flex items-center justify-center mb-2"
-                        >
-                          <Users className="w-6 h-6 text-gray-600" />
-                        </motion.div>
-                        <div className="text-3xl font-bold text-gray-900">{programYears[activeYear].participants}</div>
-                        <div className="text-sm text-gray-500">Participants</div>
-                      </div>
-                      <div className="text-center">
-                        <motion.div
                           animate={{ scale: [1, 1.2, 1] }}
                           transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                           className="flex items-center justify-center mb-2"
@@ -421,20 +405,20 @@ const FeaturedCollection = () => {
 
         {/* Year Timeline */}
         <div className="flex justify-center mt-16">
-          <div className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg border border-gray-200/50">
+          <div className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full p-3 shadow-lg border border-gray-200/50 overflow-x-auto">
             {programYears.map((program, index) => (
               <motion.button
-                key={program.year}
+                key={`${program.year}-${index}`}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setActiveYear(index)}
-                className={`relative px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 ${
+                className={`relative px-6 py-3 rounded-full font-bold text-sm transition-all duration-300 whitespace-nowrap ${
                   index === activeYear
                     ? `bg-gradient-to-r ${program.color} text-white shadow-lg`
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
-                {program.year}
+                {program.year} {program.title.split(' ')[0]}
                 {index === activeYear && (
                   <motion.div
                     layoutId="activeYearBg"
@@ -457,11 +441,11 @@ const FeaturedCollection = () => {
             />
           </div>
           <div className="flex justify-between mt-3 text-gray-500 text-sm font-medium">
-            <span>2020</span>
+            <span>2022</span>
             <span className="font-bold text-gray-700">
               {activeYear + 1} / {programYears.length}
             </span>
-            <span>2024</span>
+            <span>2025</span>
           </div>
         </div>
 
@@ -473,9 +457,9 @@ const FeaturedCollection = () => {
           className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20"
         >
           {[
-            { icon: Users, label: "Total Participants", value: "733+", color: "from-blue-400 to-cyan-500" },
-            { icon: MapPin, label: "Destinations Visited", value: "15+", color: "from-purple-400 to-pink-500" },
-            { icon: Award, label: "Years of Excellence", value: "5", color: "from-orange-400 to-red-500" }
+            { icon: MapPin, label: "UK Destinations", value: "5+", color: "from-blue-400 to-cyan-500" },
+            { icon: Calendar, label: "Linguistic Programs", value: "5", color: "from-purple-400 to-pink-500" },
+            { icon: Award, label: "Years of Excellence", value: "4", color: "from-orange-400 to-red-500" }
           ].map((stat, index) => (
             <motion.div
               key={index}

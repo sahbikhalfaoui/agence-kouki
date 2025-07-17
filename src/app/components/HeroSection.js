@@ -1,21 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
-  Sparkles, ArrowRight, Play, Users, Globe, Award, 
-  Heart, Camera, Mountain, Compass, Sun, MapPin 
+  Sparkles, Users, Globe, Award, 
+  Heart, Camera, Compass, Sun, Play, Pause, Volume2
 } from 'lucide-react';
 
 const HeroSection = () => {
-  const [hoveredImage, setHoveredImage] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  // Array of group photos
-  const groupPhotos = [
-    "/images/travelers-group-1.jpg",
-    "/images/travelers-group-2.jpg"
-  ];
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoRef, setVideoRef] = useState(null);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -29,63 +23,19 @@ const HeroSection = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Auto-cycle between images every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (hoveredImage === null) {
-        setCurrentImageIndex((prev) => (prev + 1) % groupPhotos.length);
+  const toggleVideo = () => {
+    if (videoRef) {
+      if (isVideoPlaying) {
+        videoRef.pause();
+      } else {
+        videoRef.play();
       }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [hoveredImage, groupPhotos.length]);
+      setIsVideoPlaying(!isVideoPlaying);
+    }
+  };
 
   return (
-    <section id="home" className="relative min-h-screen bg-white overflow-hidden">
-      {/* Dual Background Images */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* First Background Image */}
-        <motion.div
-          className="absolute inset-0 bg-cover bg-center transition-all duration-700"
-          style={{
-            backgroundImage: `url("${groupPhotos[0]}")`,
-            filter: `blur(${hoveredImage === 0 ? '0px' : '25px'}) brightness(${hoveredImage === 0 ? '1.1' : '0.8'}) contrast(${hoveredImage === 0 ? '1.2' : '0.8'})`,
-            opacity: hoveredImage === 0 ? '0.9' : (hoveredImage === 1 ? '0.05' : currentImageIndex === 0 ? '0.4' : '0.05'),
-            transform: `scale(${hoveredImage === 0 ? '1.05' : '1'})`,
-          }}
-        />
-        
-        {/* Second Background Image */}
-        <motion.div
-          className="absolute inset-0 bg-cover bg-center transition-all duration-700"
-          style={{
-            backgroundImage: `url("${groupPhotos[1]}")`,
-            filter: `blur(${hoveredImage === 1 ? '0px' : '25px'}) brightness(${hoveredImage === 1 ? '1.1' : '0.8'}) contrast(${hoveredImage === 1 ? '1.2' : '0.8'})`,
-            opacity: hoveredImage === 1 ? '0.9' : (hoveredImage === 0 ? '0.05' : currentImageIndex === 1 ? '0.4' : '0.05'),
-            transform: `scale(${hoveredImage === 1 ? '1.05' : '1'})`,
-          }}
-        />
-        
-        {/* Dynamic overlay that reduces when images are hovered */}
-        <div 
-          className="absolute inset-0 transition-all duration-700"
-          style={{
-            background: hoveredImage !== null 
-              ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(239, 246, 255, 0.5) 100%)'
-              : 'linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.75) 50%, rgba(239, 246, 255, 0.8) 100%)'
-          }}
-        />
-        
-        {/* Subtle pattern overlay - only when not hovering */}
-        <div 
-          className={`absolute inset-0 transition-opacity duration-700 ${hoveredImage !== null ? 'opacity-0' : 'opacity-10'}`}
-          style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), 
-                             radial-gradient(circle at 75% 75%, rgba(147, 51, 234, 0.1) 0%, transparent 50%)`,
-          }}
-        />
-      </div>
-
+    <section id="home" className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 overflow-hidden">
       {/* Enhanced Floating Elements */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Animated geometric shapes */}
@@ -122,7 +72,7 @@ const HeroSection = () => {
           className="absolute bottom-1/4 left-1/4 w-6 h-6 bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-xl opacity-20"
         />
         
-        {/* Interactive floating icons with enhanced animations */}
+        {/* Interactive floating icons */}
         <motion.div
           style={{
             x: mousePosition.x * 0.02,
@@ -248,11 +198,7 @@ const HeroSection = () => {
             className="text-6xl md:text-8xl font-black mb-8 tracking-tight leading-tight"
           >
             <motion.span 
-              className={`transition-all duration-700 ${
-                hoveredImage !== null 
-                  ? 'text-white drop-shadow-2xl' 
-                  : 'bg-gradient-to-r from-blue-600 via-blue-700 to-blue-900 bg-clip-text text-transparent drop-shadow-sm'
-              }`}
+              className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-900 bg-clip-text text-transparent drop-shadow-sm"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -260,21 +206,13 @@ const HeroSection = () => {
             </motion.span>
             <br />
             <motion.span 
-              className={`relative transition-all duration-700 ${
-                hoveredImage !== null 
-                  ? 'text-white drop-shadow-2xl' 
-                  : 'text-blue-900 drop-shadow-sm'
-              }`}
+              className="relative text-blue-900 drop-shadow-sm"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               Through Language
               <motion.div
-                className={`absolute -bottom-2 left-0 w-full h-1 rounded-full transition-all duration-700 ${
-                  hoveredImage !== null 
-                    ? 'bg-gradient-to-r from-yellow-300 to-yellow-500' 
-                    : 'bg-gradient-to-r from-blue-400 to-blue-600'
-                }`}
+                className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ delay: 1, duration: 1.5, ease: "easeInOut" }}
@@ -292,25 +230,17 @@ const HeroSection = () => {
               stiffness: 120,
               damping: 20
             }}
-            className={`text-xl md:text-2xl mb-16 max-w-4xl mx-auto leading-relaxed font-medium transition-all duration-700 ${
-              hoveredImage !== null 
-                ? 'text-white drop-shadow-lg' 
-                : 'text-gray-700'
-            }`}
+            className="text-xl md:text-2xl mb-16 max-w-4xl mx-auto leading-relaxed font-medium text-gray-700"
           >
             Immerse yourself in authentic cultural experiences while mastering new languages across{" "}
-            <span className={`font-bold ${
-              hoveredImage !== null 
-                ? 'text-yellow-300 drop-shadow-lg' 
-                : 'bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent'
-            }`}>
+            <span className="font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
               breathtaking destinations
             </span>
           </motion.p>
           
-          {/* Enhanced CTA Buttons */}
+          {/* Enhanced Video Player */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ 
               delay: 0.5,
@@ -318,49 +248,68 @@ const HeroSection = () => {
               stiffness: 100,
               damping: 20
             }}
-            className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8 mb-20"
+            className="mb-20 max-w-4xl mx-auto"
           >
-            <motion.button 
-              whileHover={{ 
-                scale: 1.05, 
-                y: -5,
-                boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.4)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative bg-gradient-to-r from-blue-600 to-blue-800 text-white px-12 py-5 rounded-full font-semibold text-lg shadow-2xl transition-all duration-300 flex items-center overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative z-10 flex items-center">
-                Start Your Journey
-                <motion.div
-                  className="ml-3"
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </motion.div>
-              </span>
-            </motion.button>
-            
-            <motion.button 
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="group flex items-center text-blue-800 hover:text-blue-600 transition-colors font-medium"
-            >
-              <motion.div 
-                className="w-16 h-16 bg-gradient-to-r from-blue-50 to-blue-100 rounded-full flex items-center justify-center mr-4 shadow-xl border border-blue-200/80 backdrop-blur-sm"
-                whileHover={{ 
-                  scale: 1.1,
-                  boxShadow: "0 20px 40px -12px rgba(59, 130, 246, 0.3)"
-                }}
+            <div className="relative group">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="relative bg-gradient-to-br from-blue-900 to-blue-800 rounded-3xl overflow-hidden shadow-2xl border-4 border-blue-200/80"
               >
-                <Play className="w-6 h-6 text-blue-600 ml-1" />
+                <video
+                  ref={setVideoRef}
+                  className="w-full h-64 md:h-96 object-cover"
+                  poster="/api/placeholder/800/400"
+                  onPlay={() => setIsVideoPlaying(true)}
+                  onPause={() => setIsVideoPlaying(false)}
+                  controls={false}
+                >
+                  <source src="/vid.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                
+                {/* Custom Video Controls Overlay */}
+                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <motion.button
+                    onClick={toggleVideo}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-6 shadow-2xl transition-all duration-300"
+                  >
+                    {isVideoPlaying ? (
+                      <Pause className="w-8 h-8 text-blue-800" />
+                    ) : (
+                      <Play className="w-8 h-8 text-blue-800 ml-1" />
+                    )}
+                  </motion.button>
+                </div>
+                
+                {/* Video Info Badge */}
+                <div className="absolute top-4 left-4 bg-white bg-opacity-90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                  <div className="flex items-center space-x-2">
+                    <Volume2 className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm font-medium text-blue-800">Our Story</span>
+                  </div>
+                </div>
+                
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-900/30 via-transparent to-transparent pointer-events-none" />
               </motion.div>
-              <div>
-                <p className="font-bold text-lg">Watch Our Story</p>
-                <p className="text-sm text-blue-600">2 min inspiring video</p>
-              </div>
-            </motion.button>
+              
+              {/* Video Description */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="mt-6 text-center"
+              >
+                <p className="text-lg font-medium text-gray-700 mb-2">
+                  Discover the magic of language learning adventures
+                </p>
+                <p className="text-sm text-gray-500">
+                  Watch inspiring stories from our global community
+                </p>
+              </motion.div>
+            </div>
           </motion.div>
           
           {/* Enhanced Stats */}
@@ -385,7 +334,7 @@ const HeroSection = () => {
               },
               { 
                 icon: Globe, 
-                number: "25+", 
+                number: "3+", 
                 label: "Countries", 
                 color: "from-green-500 to-green-700",
                 description: "Worldwide destinations"
@@ -445,106 +394,6 @@ const HeroSection = () => {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-          
-          {/* Enhanced Dual Image Hover Areas */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="mt-20 text-center"
-          >
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
-              {/* First Image Hover Area */}
-              <motion.div
-                className="relative cursor-pointer"
-                onMouseEnter={() => setHoveredImage(0)}
-                onMouseLeave={() => setHoveredImage(null)}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl px-8 py-4 shadow-xl border border-blue-200/80 backdrop-blur-sm">
-                  <div className="flex items-center space-x-3">
-                    <Camera className="w-6 h-6 text-blue-600" />
-                    <div>
-                      <span className="text-blue-800 font-bold text-lg block">
-                        Adventure Group 1
-                      </span>
-                      <span className="text-blue-600 text-sm">
-                        {hoveredImage === 0 ? "Amazing memories!" : "Hover to see"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                
-                <AnimatePresence>
-                  {hoveredImage === 0 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                      className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-800 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-lg"
-                    >
-                      Exploring together! 🌍
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-
-              {/* Second Image Hover Area */}
-              <motion.div
-                className="relative cursor-pointer"
-                onMouseEnter={() => setHoveredImage(1)}
-                onMouseLeave={() => setHoveredImage(null)}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl px-8 py-4 shadow-xl border border-purple-200/80 backdrop-blur-sm">
-                  <div className="flex items-center space-x-3">
-                    <Heart className="w-6 h-6 text-purple-600" />
-                    <div>
-                      <span className="text-purple-800 font-bold text-lg block">
-                        Adventure Group 2
-                      </span>
-                      <span className="text-purple-600 text-sm">
-                        {hoveredImage === 1 ? "Unforgettable moments!" : "Hover to see"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                
-                <AnimatePresence>
-                  {hoveredImage === 1 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.9 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.9 }}
-                      className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-800 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-lg"
-                    >
-                      Learning & laughing! 📚
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            </div>
-
-            {/* Current Image Indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
-              className="mt-8 flex justify-center space-x-2"
-            >
-              {groupPhotos.map((_, index) => (
-                <motion.div
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    (hoveredImage !== null ? hoveredImage === index : currentImageIndex === index)
-                      ? 'bg-blue-600' 
-                      : 'bg-blue-200'
-                  }`}
-                  whileHover={{ scale: 1.2 }}
-                />
-              ))}
-            </motion.div>
           </motion.div>
         </div>
       </div>

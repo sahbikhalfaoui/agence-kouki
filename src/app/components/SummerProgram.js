@@ -21,60 +21,60 @@ const SummerProgram = () => {
 
   const programFeatures = [
     {
-      icon: GraduationCap,
-      title: "27 Hours of Classes",
-      description: "Intensive English courses with qualified teachers",
-      color: "from-blue-500 to-blue-700"
-    },
-    {
-      icon: Eye,
-      title: "5 Cultural Excursions",
-      description: "Science Museums, Natural History Museum, Madame Tussauds",
-      color: "from-purple-500 to-purple-700"
-    },
-    {
       icon: Building,
-      title: "London City Tour",
-      description: "Buckingham Palace, Piccadilly Circus, Trafalgar Square",
-      color: "from-green-500 to-green-700"
-    },
-    {
-      icon: Utensils,
-      title: "Complete Halal Boarding",
-      description: "Accommodation with halal food buffet",
-      color: "from-orange-500 to-orange-700"
-    },
-    {
-      icon: Trophy,
-      title: "Sports Activities",
-      description: "Swimming, sports, badminton from 2PM to 11PM",
+      title: "Full-board Accommodation",
+      description: "Complete accommodation with all meals included",
       color: "from-red-500 to-red-700"
     },
     {
-      icon: Globe,
-      title: "Conversation Club",
-      description: "Practice English with different nationalities",
+      icon: Users,
+      title: "Professional Guide",
+      description: "Expert guidance throughout your London adventure",
+      color: "from-green-500 to-green-700"
+    },
+    {
+      icon: Eye,
+      title: "Full-day Excursions",
+      description: "Comprehensive sightseeing and cultural experiences",
+      color: "from-blue-500 to-blue-700"
+    },
+    {
+      icon: Building,
+      title: "Ensuite Single Bedrooms",
+      description: "Private rooms with personal bathrooms",
+      color: "from-purple-500 to-purple-700"
+    },
+    {
+      icon: Utensils,
+      title: "Halal Food",
+      description: "All meals prepared according to halal standards",
+      color: "from-orange-500 to-orange-700"
+    },
+    {
+      icon: MapPin,
+      title: "Oxford & Brighton Visits",
+      description: "Special excursions to these historic cities",
       color: "from-teal-500 to-teal-700"
     },
     {
-      icon: Film,
-      title: "Evening Activities",
-      description: "Cinema, theater, karaoke and international games",
+      icon: Camera,
+      title: "Christmas Market Experience",
+      description: "Enjoy London's magical Christmas atmosphere",
       color: "from-pink-500 to-pink-700"
     },
     {
-      icon: Award,
-      title: "British Council Approved",
-      description: "Program approved for 20 years",
+      icon: Heart,
+      title: "NO LESSONS - Pure Tourism",
+      description: "Focus on discovery and enjoyment, not studying",
       color: "from-indigo-500 to-indigo-700"
     }
   ];
 
   const highlights = [
-    { icon: Calendar, label: "Duration", value: "13 days", color: "text-blue-600" },
+    { icon: Calendar, label: "Duration", value: "7 days", color: "text-red-600" },
     { icon: MapPin, label: "Destination", value: "London", color: "text-green-600" },
-    { icon: Users, label: "Guide", value: "Mr. Kouki", color: "text-purple-600" },
-    { icon: Shield, label: "Supervision", value: "24/7 Parental Control", color: "text-orange-600" }
+    { icon: Users, label: "Guide", value: "Mr. Kouki", color: "text-blue-600" },
+    { icon: Camera, label: "Dates", value: "Dec 17-23", color: "text-purple-600" }
   ];
 
   return (
@@ -105,7 +105,7 @@ const SummerProgram = () => {
           </h2>
           <p className="text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto font-medium">
             With <span className="text-blue-600 font-bold">Mr. Kouki</span> - 
-            The only program in Tunisia offering a 13-day stay
+            The only program in Tunisia offering a 7-day stay
           </p>
         </motion.div>
 
